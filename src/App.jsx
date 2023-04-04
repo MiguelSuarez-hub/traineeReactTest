@@ -9,7 +9,12 @@ export function App () {
     useEffect(() => {
       fetch(API_ENDPOINT_CAT_RANDOM_FACT)
         .then(res => res.json())
-        .then(data => setFact(data.fact))
+        .then(data => {
+            const { fact } = data
+            setFact(fact)
+
+            const threeeFirstWord = fact.split(' ', 3) // const firstWord = fact.split(' ').slice(0, 3.join(' '))
+        })
     }, [])
     
     return (
