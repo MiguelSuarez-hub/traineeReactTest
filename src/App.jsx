@@ -11,10 +11,17 @@ export function App () {
     // Obtener Fact cada vez que cargamos la pagina
     useEffect(() => {
       fetch(API_ENDPOINT_CAT_RANDOM_FACT)
-        .then(res => res.json())
+        .then(res => {
+            if (!res.ok) throw new Error('Error fetching fact')
+            return res.json()
+        })
         .then(data => {
             const { fact } = data
             setFact(fact)
+        })
+        .catch((err) => {
+            //tanto si hay error con la respuesta como con la petición
+            console.error(err)
         })
     }, [])
     // Obtener imagen cada vez que cambia de fact
